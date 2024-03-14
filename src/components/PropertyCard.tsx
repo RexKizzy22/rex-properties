@@ -7,8 +7,9 @@ import {
   FaMoneyBill,
   FaMapMarker,
 } from "react-icons/fa";
+import { Property } from "@/utils/types";
 
-const PropertyCard = ({ property }: { property: any }) => {
+const PropertyCard = ({ property }: { property: Property }) => {
   const getRateDisplay = () => {
     const { rates } = property;
 

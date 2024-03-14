@@ -1,4 +1,5 @@
 export type Property = {
+  _id?: string;
   owner: string;
   name: string;
   type: string;
@@ -25,4 +26,11 @@ export type Property = {
   };
   images: string[];
   is_featured: boolean;
+};
+
+export type AppUser = {
+  id?: string;
+  email: string;
+  username: string;
+  bookmarks?: Property;
 };

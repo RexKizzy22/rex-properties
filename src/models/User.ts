@@ -11,6 +11,9 @@ const UserSchema = new Schema({
     unique: [true, "Username already exists"],
     required: [true, "Username is required"],
   },
+  image: {
+    type: "string",
+  },
   bookmarks: [
     {
       type: Schema.Types.ObjectId,
