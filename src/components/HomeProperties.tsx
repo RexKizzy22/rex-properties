@@ -1,13 +1,14 @@
 import PropertyCard from "@/components/PropertyCard";
 import Link from "next/link";
 import { fetchProperties } from "@/utils/request";
+import { SavedProperty } from "@/utils/types";
 
 const HomeProperties = async () => {
   const properties = JSON.parse(await fetchProperties());
 
   const recentProperties = properties
     ?.sort(
-      (a: any, b: any) =>
+      (a: SavedProperty, b: SavedProperty) =>
         (new Date(b.createdAt) as any) - (new Date(a.createdAt) as any)
     )
     ?.slice(0, 3);

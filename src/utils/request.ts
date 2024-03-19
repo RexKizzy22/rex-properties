@@ -25,7 +25,9 @@ async function fetchProperty(id: string) {
   }
 
   try {
-    const res = await fetch(`${apiDomain}/properties/${id}`);
+    const res = await fetch(`${apiDomain}/properties/${id}`, {
+      cache: "no-store",
+    });
 
     if (!res.ok) {
       throw new Error("Error fetching properties");

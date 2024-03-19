@@ -8,13 +8,14 @@ import { FaArrowLeft } from "react-icons/fa";
 import { fetchProperty } from "@/utils/request";
 import PropertyHeaderImage from "@/components/PropertyHeaderImage";
 import PropertyDetails from "@/components/PropertyDetails";
-import { Property } from "@/utils/types";
+import { SavedProperty } from "@/utils/types";
 import Spinner from "@/components/Spinner";
+import PropertyImages from "@/components/PropertyImages";
 
 const Property = () => {
   const { id } = useParams();
 
-  const [property, setProperty] = useState<Property | null>(null);
+  const [property, setProperty] = useState<SavedProperty | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -153,6 +154,8 @@ const Property = () => {
             </div>
           </div>
         </section>
+
+        <PropertyImages images={property.images} />
       </>
     );
   }

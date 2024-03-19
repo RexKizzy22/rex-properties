@@ -6,9 +6,9 @@ import {
   FaTimes,
   FaCheck,
 } from "react-icons/fa";
-import { Property } from "@/utils/types";
+import { SavedProperty } from "@/utils/types";
 
-const PropertyDetails = ({ property }: { property: Property }) => {
+const PropertyDetails = ({ property }: { property: SavedProperty }) => {
   return (
     <main>
       <div className="bg-white p-6 rounded-lg shadow-md text-center md:text-left">

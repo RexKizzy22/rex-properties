@@ -1,4 +1,4 @@
-export type Property = {
+type BaseProperty = {
   _id?: string;
   owner: string;
   name: string;
@@ -24,8 +24,15 @@ export type Property = {
     email?: string;
     phone?: string;
   };
-  images: string[];
   is_featured: boolean;
+};
+
+export type Property = BaseProperty & { images: File[] };
+
+export type SavedProperty = BaseProperty & {
+  images: string[];
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type AppUser = {

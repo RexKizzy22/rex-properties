@@ -7,9 +7,9 @@ import {
   FaMoneyBill,
   FaMapMarker,
 } from "react-icons/fa";
-import { Property } from "@/utils/types";
+import { SavedProperty } from "@/utils/types";
 
-const PropertyCard = ({ property }: { property: Property }) => {
+const PropertyCard = ({ property }: { property: SavedProperty }) => {
   const getRateDisplay = () => {
     const { rates } = property;
 
@@ -25,7 +25,7 @@ const PropertyCard = ({ property }: { property: Property }) => {
   return (
     <div className="bg-white rounded-xl shadow-md relative">
       <Image
-        src={`/images/properties/${property.images[0]}`}
+        src={property.images[0]}
         width={0}
         height={0}
         sizes="100vw"
