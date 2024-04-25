@@ -1,5 +1,4 @@
 type BaseProperty = {
-  _id?: string;
   owner: string;
   name: string;
   type: string;
@@ -15,9 +14,9 @@ type BaseProperty = {
   square_feet: number;
   amenities: string[];
   rates: {
-    nightly?: number;
-    weekly?: number;
-    monthly?: number;
+    nightly?: number | string;
+    weekly?: number | string;
+    monthly?: number | string;
   };
   seller_info: {
     name?: string;
@@ -30,6 +29,7 @@ type BaseProperty = {
 export type Property = BaseProperty & { images: File[] };
 
 export type SavedProperty = BaseProperty & {
+  _id? : string;
   images: string[];
   createdAt: string;
   updatedAt: string;

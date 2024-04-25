@@ -4,12 +4,18 @@ import { fetchProperties } from "@/utils/request";
 import { SavedProperty } from "@/utils/types";
 
 const HomeProperties = async () => {
-  const properties = JSON.parse(await fetchProperties());
+  let properties = [];
+
+  try {
+    properties = await fetchProperties();
+  } catch (error) {
+    console.error((error as Error).message);
+  }
 
   const recentProperties = properties
     ?.sort(
       (a: SavedProperty, b: SavedProperty) =>
-        (new Date(b.createdAt) as any) - (new Date(a.createdAt) as any)
+        (new Date(b.createdAt).getTime()) - (new Date(a.createdAt).getTime())
     )
     ?.slice(0, 3);
 

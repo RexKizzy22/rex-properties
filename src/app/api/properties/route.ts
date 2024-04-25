@@ -9,12 +9,15 @@ export const GET = async (req: Request): Promise<Response> => {
 
     const properties = await Property.find({}).lean().exec();
 
-    return Response.json(JSON.stringify(properties));
+    return Response.json(properties);
   } catch (error) {
     console.error(error);
-    return Response.json(JSON.stringify({ message: "Something went wrong" }), {
-      status: 500,
-    });
+    return Response.json(
+      { message: "Something went wrong" },
+      {
+        status: 500,
+      }
+    );
   }
 };
 
@@ -64,10 +67,10 @@ export const POST = async (req: Request): Promise<Response> => {
       name: formData.get("name"),
       description: formData.get("description"),
       location: {
-        city: formData.get("city"),
-        state: formData.get("state"),
-        street: formData.get("street"),
-        zipcode: formData.get("zipcode"),
+        city: formData.get("location.city"),
+        state: formData.get("location.state"),
+        street: formData.get("location.street"),
+        zipcode: formData.get("location.zipcode"),
       },
       beds: formData.get("beds"),
       baths: formData.get("baths"),
@@ -75,14 +78,14 @@ export const POST = async (req: Request): Promise<Response> => {
       amenities,
       images: uploadedImages,
       rates: {
-        weekly: formData.get("weekly"),
-        monthly: formData.get("monthly"),
-        nightly: formData.get("nightly"),
+        weekly: formData.get("rates.weekly"),
+        monthly: formData.get("rates.monthly"),
+        nightly: formData.get("rates.nightly"),
       },
       seller_info: {
-        name: formData.get("name"),
-        email: formData.get("email"),
-        phone: formData.get("phone"),
+        name: formData.get("seller_info.name"),
+        email: formData.get("seller_info.email"),
+        phone: formData.get("seller_info.phone"),
       },
       owner: userId,
     };

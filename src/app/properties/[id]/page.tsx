@@ -1,42 +1,26 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import useSWR from "swr";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 
 import { fetchProperty } from "@/utils/request";
 import PropertyHeaderImage from "@/components/PropertyHeaderImage";
 import PropertyDetails from "@/components/PropertyDetails";
-import { SavedProperty } from "@/utils/types";
 import Spinner from "@/components/Spinner";
 import PropertyImages from "@/components/PropertyImages";
 
 const Property = () => {
   const { id } = useParams();
 
-  const [property, setProperty] = useState<SavedProperty | null>(null);
-  const [loading, setLoading] = useState(false);
+  const {
+    data: property,
+    isLoading,
+    error,
+  } = useSWR([`api/properties/${id}`, (id as string)], fetchProperty);
 
-  useEffect(() => {
-    if (property === null) {
-      (async () => {
-        if (!id) return null;
-
-        try {
-          setLoading(true);
-          const propertyData = await fetchProperty(id as string);
-          setProperty(JSON.parse(propertyData));
-        } catch (error) {
-          console.error(error);
-        } finally {
-          setLoading(false);
-        }
-      })();
-    }
-  }, [id, property]);
-
-  if (!loading && !property) {
+  if (!isLoading && error) {
     return (
       <h1 className="text-center text-2xl font-bold mt-10">
         Property Not Found
@@ -44,11 +28,11 @@ const Property = () => {
     );
   }
 
-  if (loading) {
-    return <Spinner loading={loading} />;
+  if (isLoading) {
+    return <Spinner loading={isLoading} />;
   }
 
-  if (!loading && property) {
+  if (!isLoading && property) {
     return (
       <>
         <PropertyHeaderImage image={property?.images?.[0]} />

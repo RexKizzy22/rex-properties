@@ -25,10 +25,10 @@ const PropertyCard = ({ property }: { property: SavedProperty }) => {
   return (
     <div className="bg-white rounded-xl shadow-md relative">
       <Image
-        src={property.images[0]}
-        width={0}
-        height={0}
-        sizes="100vw"
+        src={property?.images[0]}
+        width={500}
+        height={500}
+        priority={false}
         alt="Property Image"
         className="object-cover rounded-t-xl"
       />

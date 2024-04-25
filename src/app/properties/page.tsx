@@ -2,7 +2,13 @@ import PropertyCard from "@/components/PropertyCard";
 import { fetchProperties } from "@/utils/request";
 
 const PropertiesPage = async () => {
-  const properties = JSON.parse(await fetchProperties());
+  let properties = [];
+
+  try {
+    properties = await fetchProperties();
+  } catch (error) {
+    console.error((error as Error).message);
+  }
 
   return (
     <section className="px-4 py-6">

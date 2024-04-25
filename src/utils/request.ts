@@ -1,42 +1,36 @@
-const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
+import { SavedProperty } from "./types";
+
+const apiDomain =
+  process.env.NEXT_PUBLIC_API_DOMAIN || "http://localhost:3000/api";
 
 async function fetchProperties() {
   if (!apiDomain) {
     return [];
   }
 
-  try {
-    const res = await fetch(`${apiDomain}/properties`);
+  const res = await fetch(`${apiDomain}/properties`);
 
-    if (!res.ok) {
-      throw new Error("Error fetching properties");
-    }
-
-    return res.json();
-  } catch (error) {
-    console.error(error);
-    return [];
+  if (!res.ok) {
+    throw new Error("Error fetching properties");
   }
+
+  return res.json();
 }
 
-async function fetchProperty(id: string) {
+async function fetchProperty([_, id]: string[]): Promise<SavedProperty | null> {
   if (!apiDomain) {
-    return;
+    return null;
   }
 
-  try {
-    const res = await fetch(`${apiDomain}/properties/${id}`, {
-      cache: "no-store",
-    });
+  const res = await fetch(`${apiDomain}/properties/${id}`, {
+    cache: "no-store",
+  });
 
-    if (!res.ok) {
-      throw new Error("Error fetching properties");
-    }
-
-    return res.json();
-  } catch (error) {
-    console.error(error);
+  if (!res.ok) {
+    throw new Error("Error fetching properties");
   }
+
+  return res.json();
 }
 
 export { fetchProperties, fetchProperty };

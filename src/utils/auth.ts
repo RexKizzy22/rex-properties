@@ -43,10 +43,10 @@ export const authOptions: NextAuthOptions = {
     async session({ session }) {
       // Get user from the database
       const user = await User.findOne({ email: session?.user?.email });
-        // Assign user id to the session
-        if (session?.user !== undefined) {
-            session.user.id = user._id.toString();
-        }
+      // Assign user id to the session
+      if (session?.user !== undefined) {
+        session.user.id = user._id.toString();
+      }
       // return session
       return session;
     },
